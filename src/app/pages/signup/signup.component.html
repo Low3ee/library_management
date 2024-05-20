@@ -1,0 +1,108 @@
+<div class="flex mt-7 justify-center items-center flex-col h-3/4 w-full">
+  <h1>Register Now</h1>
+
+  <div class="text-red-600 font-bold">{{ errorMessage }}</div>
+
+  <div class="grid grid-rows-4 grid-flow-col gap-4">
+    <form action="" method="post" [formGroup]="form">
+      <!-- Row 1 -->
+      <div class="flex justify-between">
+        <div class="mr-2">
+          <label for="fname" class="label">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            class="input-bordered input w-full"
+            formControlName="name"
+          />
+        </div>
+        <div class="ml-2">
+          <label for="email" class="label">Email Address</label>
+          <input
+            type="text"
+            name="email"
+            class="input-bordered input w-full"
+            formControlName="email"
+          />
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="flex justify-between">
+        <div class="mr-2">
+          <label for="username" class="label">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="input-bordered input w-full"
+            formControlName="username"
+          />
+        </div>
+        <div class="ml-2">
+          <label for="phone" class="label">Contact No.</label>
+          <input
+            type="tel"
+            name="phone"
+            class="input-bordered input w-full"
+            formControlName="contact_no"
+          />
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="flex justify-between">
+        <div class="mr-2">
+          <label for="course" class="label">Course</label>
+          <input
+            type="text"
+            name="course"
+            class="input-bordered input w-full"
+            formControlName="course"
+          />
+        </div>
+        <div class="ml-2">
+          <label for="year_level" class="label">Year Level</label>
+          <input
+            type="number"
+            name="year_level"
+            class="input-bordered input w-full"
+            formControlName="year_level"
+          />
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="flex justify-between">
+        <div class="mr-2">
+          <label for="password" class="label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="input-bordered input w-full"
+            formControlName="password"
+          />
+        </div>
+        <div class="ml-2">
+          <label for="cpassword" class="label">Confirm Password</label>
+          <input
+            type="password"
+            name="cpassword"
+            class="input-bordered input w-full"
+            formControlName="cpassword"
+          />
+        </div>
+      </div>
+
+      <br />
+      <input
+        type="button"
+        value="Register"
+        class="btn btn-primary self-center w-full"
+        (click)="registerUser()"
+      />
+    </form>
+  </div>
+
+  <br />
+  <span>Already Registered? <a routerLink="/signup">Log In</a> </span>
+</div>

@@ -1,0 +1,303 @@
+<div class="grid grid-rows-3 w-screen h-screen px-20">
+  <p class="text-4xl font-bold self-center">ACLC College Library</p>
+
+  <div
+    class="grid-rows-2 h-full w-full text-black items-center text-center rounded-lg"
+  >
+    <div class="grid grid-cols-3 h-full w-full">
+      <div class="grid justify-around font-medium">
+        <button onclick="registerBook.showModal()">
+          <img
+            src="https://www.svgrepo.com/show/532618/book-sparkles.svg"
+            alt="add book"
+            class="w-40 h-40"
+          />
+          <p>Register A New Book</p>
+        </button>
+      </div>
+      <div class="grid justify-around font-medium">
+        <button onclick="checkoutBook.showModal()">
+          <img
+            src="https://www.svgrepo.com/show/521516/book.svg"
+            alt="add book"
+            class="w-40 h-40"
+          />
+          <p>Check Out Book</p>
+        </button>
+      </div>
+      <div class="grid justify-around font-medium">
+        <button onclick="checkinBook.showModal()">
+          <img
+            src="https://www.svgrepo.com/show/374404/return-order.svg"
+            alt="add book"
+            class="w-40 h-40"
+          />
+          <p>Check In Borrowed Book</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  <a (click)="logOut()">Log Out</a>
+</div>
+
+<!-- drawer init and toggle -->
+<div class="text-center">
+  <button
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+    type="button"
+    data-drawer-target="drawer-swipe"
+    data-drawer-show="drawer-swipe"
+    data-drawer-placement="bottom"
+    data-drawer-edge="true"
+    data-drawer-edge-offset="bottom-[60px]"
+    aria-controls="drawer-swipe"
+  >
+    Show swipeable drawer
+  </button>
+</div>
+
+<!-- drawer component -->
+<div
+  id="drawer-swipe"
+  class="fixed z-40 w-full overflow-y-auto bg-white border-t border-gray-200 rounded-t-lg dark:border-gray-700 dark:bg-gray-800 transition-transform bottom-0 left-0 right-0 translate-y-full bottom-[60px]"
+  tabindex="-1"
+  aria-labelledby="drawer-swipe-label"
+>
+  <div
+    class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+    data-drawer-toggle="drawer-swipe"
+  >
+    <span
+      class="absolute w-8 h-1 -translate-x-1/2 bg-gray-300 rounded-lg top-3 left-1/2 dark:bg-gray-600"
+    ></span>
+    <h5
+      id="drawer-swipe-label"
+      class="inline-flex items-center text-base text-gray-500 dark:text-gray-400 font-medium"
+    >
+      <svg
+        class="w-4 h-4 me-2"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 18 18"
+      >
+        <path
+          d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10ZM17 13h-2v-2a1 1 0 0 0-2 0v2h-2a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2Z"
+        /></svg
+      >More Options
+    </h5>
+  </div>
+
+  <!-- drawer na ni -->
+  <div class="grid grid-cols-3 gap-4 p-4 lg:grid-cols-4">
+    <!-- first button -->
+    <div
+      class="p-4 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700"
+    >
+      <div
+        class="flex justify-center items-center p-2 mx-auto mb-2 bg-gray-200 dark:bg-gray-600 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]"
+      >
+        <svg
+          class="inline w-5 h-5 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 14"
+        >
+          <path
+            d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM9 6v2H2V6h7Zm2 0h7v2h-7V6Zm-9 4h7v2H2v-2Zm9 2v-2h7v2h-7Z"
+          />
+        </svg>
+      </div>
+      <div class="font-medium text-center text-gray-500 dark:text-gray-400">
+        Accounts
+      </div>
+    </div>
+    <!-- end of first button -->
+
+    <!-- second button -->
+    <div
+      class="p-4 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700"
+    >
+      <div
+        class="flex justify-center items-center p-2 mx-auto mb-2 bg-gray-200 dark:bg-gray-600 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]"
+      >
+        <svg
+          class="inline w-5 h-5 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 14"
+        >
+          <path
+            d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM9 6v2H2V6h7Zm2 0h7v2h-7V6Zm-9 4h7v2H2v-2Zm9 2v-2h7v2h-7Z"
+          />
+        </svg>
+      </div>
+      <div class="font-medium text-center text-gray-500 dark:text-gray-400">
+        Books
+      </div>
+    </div>
+    <!-- end of second button -->
+
+    <!-- first button -->
+    <div
+      class="p-4 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700"
+    >
+      <div
+        class="flex justify-center items-center p-2 mx-auto mb-2 bg-gray-200 dark:bg-gray-600 rounded-full w-[48px] h-[48px] max-w-[48px] max-h-[48px]"
+      >
+        <svg
+          class="inline w-5 h-5 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 14"
+        >
+          <path
+            d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM9 6v2H2V6h7Zm2 0h7v2h-7V6Zm-9 4h7v2H2v-2Zm9 2v-2h7v2h-7Z"
+          />
+        </svg>
+      </div>
+      <div class="font-medium text-center text-gray-500 dark:text-gray-400">
+        Borrows
+      </div>
+    </div>
+
+    <!-- end of 3rd button -->
+  </div>
+  <!-- end of drawer -->
+</div>
+
+<dialog id="registerBook" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Register A Book</h3>
+    <p class="font-bold">{{ formMessage }}</p>
+    <p class="py-4">Press ESC key to close.</p>
+    <form [formGroup]="addBookForm" class="text-black">
+      <input formControlName="name" type="text" placeholder="Book Name" id="" />
+      <input
+        formControlName="author"
+        type="text"
+        placeholder="Book Author"
+        id=""
+      />
+      <input
+        formControlName="condition"
+        type="text"
+        placeholder="Book Condition"
+        id=""
+      />
+      <input
+        formControlName="category"
+        type="text"
+        placeholder="Book Category"
+        id=""
+      />
+    </form>
+    <div class="modal-action">
+      <button class="btn" (click)="onRegisterBook()">Register Book</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="checkoutBook" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Checkout A Book</h3>
+    <p class="font-bold">{{ formMessage }}</p>
+    <p class="py-4">Press ESC key to close.</p>
+    <form [formGroup]="checkOutBookForm" class="text-black">
+      <input formControlName="bookId" type="text" placeholder="Book ID" id="" />
+      <input
+        formControlName="user_id"
+        type="text"
+        placeholder="User ID"
+        id=""
+      />
+      <br />
+      <div class="items-center justify-center block">
+        <label for="date_due" class="float-left w-10 text-xs block mb-1"
+          >Date Due
+        </label>
+        <input
+          name="date_due"
+          formControlName="date_due"
+          type="date"
+          placeholder="Date Due"
+          class="block"
+        />
+      </div>
+    </form>
+    <div class="modal-action">
+      <button class="btn" (click)="onCheckoutBook()">Checkout Book</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="checkinBook" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Return A Book</h3>
+    <p class="font-bold">{{ formMessage }}</p>
+    <p class="py-4">Press ESC key to close.</p>
+    <form [formGroup]="returnBookForm" class="text-black">
+      <input
+        formControlName="checkoutId"
+        type="text"
+        placeholder="Checkout ID"
+        id=""
+      />
+      <input
+        formControlName="studentId"
+        type="text"
+        placeholder="Student ID"
+        id=""
+      />
+      <input
+        formControlName="penalty"
+        type="number"
+        placeholder="Penalty Fee"
+        id=""
+      />
+      <input
+        formControlName="remarks"
+        type="text"
+        placeholder="Remarks"
+        id=""
+      />
+    </form>
+    <div class="modal-action">
+      <button class="btn" (click)="onReturnBook()">Return Book</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="registerStudent" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Register Student</h3>
+    <p class="font-bold">{{ formMessage }}</p>
+    <p class="py-4">Press ESC key to close.</p>
+    <form [formGroup]="registerStudent" class="text-black">
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="Student Name"
+        id=""
+      />
+      <input
+        formControlName="email"
+        type="text"
+        placeholder="Email Adress"
+        id=""
+      />
+      <input
+        formControlName="contact_no"
+        type="text"
+        placeholder="Contact No."
+        id=""
+      />
+    </form>
+    <div class="modal-action">
+      <button class="btn">Register Student</button>
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "bookName": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "category": "Classic"
+  },
+  {
+    "id": 2,
+    "bookName": "1984",
+    "author": "George Orwell",
+    "category": "Dystopian"
+  },
+  {
+    "id": 3,
+    "bookName": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "category": "Fiction"
+  },
+  {
+    "id": 4,
+    "bookName": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "category": "Classic"
+  },
+  {
+    "id": 5,
+    "bookName": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "category": "Romance"
+  },
+  {
+    "id": 6,
+    "bookName": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "category": "Fantasy"
+  },
+  {
+    "id": 7,
+    "bookName": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "category": "Fantasy"
+  },
+  {
+    "id": 8,
+    "bookName": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "category": "Mystery"
+  },
+  {
+    "id": 9,
+    "bookName": "The Alchemist",
+    "author": "Paulo Coelho",
+    "category": "Fiction"
+  },
+  {
+    "id": 10,
+    "bookName": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "category": "Non-fiction"
+  }
+]

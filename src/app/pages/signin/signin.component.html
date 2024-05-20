@@ -1,0 +1,36 @@
+<div class="flex justify-center items-center flex-col h-screen w-full">
+  <form method="post" class="w-1/4" [formGroup]="userForm">
+    <div class="text-red-600 font-bold">
+      {{ errorMessage }}
+    </div>
+    <div>
+      <label for="creds" class="label">Username/Email</label>
+      <input
+        type="text"
+        name="creds"
+        class="input-bordered input w-full"
+        formControlName="creds"
+        [ngClass]="{ 'border-red-600 border-2': errorMessage != '' }"
+      />
+    </div>
+    <div>
+      <label for="password" class="label">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="input-bordered input w-full"
+        [ngClass]="{ 'border-red-600 border-2': errorMessage != '' }"
+        formControlName="password"
+      />
+    </div>
+    <br />
+    <input
+      type="button"
+      value="Sign In"
+      (click)="loginUser()"
+      class="btn btn-primary self-center w-full"
+    />
+  </form>
+  <br />
+  <span>No Account? <a routerLink="/signup">Signup</a> </span>
+</div>

@@ -1,0 +1,41 @@
+<app-sidenav></app-sidenav>
+<div class="grid grid-rows-3 h-screen w-screen content-center justify-center">
+  <p class="pt-4 text-5xl mb-0">{{ username }}'s Book History</p>
+  <div class="overflow-x-auto h-full w-full mt-0">
+    <table class="table table-xs">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Book Name</th>
+          <th>Rent ID</th>
+          <th>Condition</th>
+          <th>Date Borrowed</th>
+          <th>Date Due</th>
+          <th>Librarian Remarks</th>
+          <th>Fine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let book of books; let i = index"
+          [ngClass]="{
+            'text-red-600 font-semibold':
+              this.compareDate(book.date_due) && book.returned == 0,
+            'text-green-500': book.returned == 1
+          }"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ book.name }}</td>
+          <td>{{ book.id }}</td>
+          <td>{{ book.condition }}</td>
+          <td>{{ book.date_borrowed }}</td>
+          <td>
+            {{ book.date_due }}
+          </td>
+          <td>{{ book.remarks }}</td>
+          <td>{{ book.fine }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
