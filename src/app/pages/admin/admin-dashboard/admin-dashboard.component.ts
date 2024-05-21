@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from '../../../service/JwtService';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../repository/user/user.service';
 import { BooksService } from '../../../repository/books/books.service';
 import {
@@ -10,11 +10,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, RouterLink],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
 })
@@ -46,6 +47,7 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    initFlowbite();
     if (this.jwtService.getRole() == 1) {
       this.router.navigate(['/']);
     }

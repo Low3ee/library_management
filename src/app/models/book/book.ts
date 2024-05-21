@@ -1,4 +1,5 @@
 export interface BookModel {
+  id: any;
   name: any;
   author: any;
   category: any;

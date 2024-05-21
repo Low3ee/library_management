@@ -1,55 +1,135 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+<div
+  class="h-screen w-full flex items-center justify-center self-center flex-col"
+>
+  <div>
+    <a
+      routerLink="/admin"
+      class="hover:text-green-600 justify-end items-end text-end"
+      >back to dashboard</a
     >
-      <tr>
-        <th scope="col" class="px-6 py-3">Book ID</th>
-        <th scope="col" class="px-6 py-3">Book Name</th>
-        <th scope="col" class="px-6 py-3">Author</th>
-        <th scope="col" class="px-6 py-3">Category</th>
-        <th scope="col" class="px-6 py-3">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="
-          let book of books;
-          let i = index;
-          let odd = odd;
-          let even = even
-        "
-        [class.odd:bg-white]="odd"
-        [class.odd:dark:bg-gray-900]="odd"
-        [class.even:bg-gray-50]="even"
-        [class.even:dark:bg-gray-800]="even"
-        class="border-b dark:border-gray-700"
+  </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        <tr>
+          <th scope="col" class="px-6 py-3">Book ID</th>
+          <th scope="col" class="px-6 py-3">Book Name</th>
+          <th scope="col" class="px-6 py-3">Author</th>
+          <th scope="col" class="px-6 py-3">Category</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let book of books;
+            let i = index;
+            let odd = odd;
+            let even = even
+          "
+          [ngClass]="{
+            'bg-white': odd,
+            'dark:bg-gray-900': odd,
+            'bg-gray-50': even,
+            'dark:bg-gray-800': even,
+            'border-b': true,
+            'dark:border-gray-700': true
+          }"
         >
-          {{ book.id }}
-        </th>
-        <td class="px-6 py-4">
-          {{ book.bookName }}
-        </td>
-        <td class="px-6 py-4">
-          {{ book.author }}
-        </td>
-        <td class="px-6 py-4">
-          {{ book.category }}
-        </td>
-        <td class="px-6 py-4">
-          <a
-            href="#"
-            class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            >Edit</a
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
           >
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            {{ book.id }}
+          </th>
+          <td class="px-6 py-4">
+            {{ book.name }}
+          </td>
+          <td class="px-6 py-4">
+            {{ book.author }}
+          </td>
+          <td class="px-6 py-4">
+            {{ book.category }}
+          </td>
+          <td class="px-6 py-4">
+            <button
+              (click)="openEditDialog(book)"
+              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <a
+      routerLink="/admin"
+      class="hover:text-green-600 justify-end items-end text-end"
+      >back to dashboard</a
+    >
+  </div>
 </div>
+
+<dialog id="editBook" class="modal">
+  <div class="bg-white p-6">
+    <span>Press ESC to close.</span>
+    <h2>Edit Book</h2>
+    <form [formGroup]="editBookForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700">Name</label>
+        <input
+          formControlName="name"
+          id="name"
+          class="mt-1 block w-full"
+          type="text"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="author" class="block text-gray-700">Author</label>
+        <input
+          formControlName="author"
+          id="author"
+          class="mt-1 block w-full"
+          type="text"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="category" class="block text-gray-700">Category</label>
+        <input
+          formControlName="category"
+          id="category"
+          class="mt-1 block w-full"
+          type="text"
+        />
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          (click)="closeEditDialog()"
+          class="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          (click)="onDelete()"
+          class="bg-red-500 text-white px-4 py-2 rounded ml-2"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>

@@ -40,6 +40,9 @@ export class DashboardComponent implements OnInit {
     if (this.jwtService.getToken() == null) {
       this.router.navigate(['/signin']);
     }
+    if (this.jwtService.getRole() !== 1) {
+      this.router.navigate(['/admin']);
+    }
     this.getBalance();
     this.getUserRentedBooks();
     this.getNotReturnedRentedBooks();

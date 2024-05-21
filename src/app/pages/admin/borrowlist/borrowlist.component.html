@@ -1,0 +1,54 @@
+<div
+  class="h-screen w-full flex items-center justify-center self-center flex-col"
+>
+  <div>
+    <a routerLink="/admin">Return to Dashboard</a>
+  </div>
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Reference ID</th>
+          <th scope="col" class="px-6 py-3">Book Name</th>
+          <th scope="col" class="px-6 py-3">Borrower Name</th>
+          <th scope="col" class="px-6 py-3">Contact No</th>
+          <th scope="col" class="px-6 py-3">Remarks</th>
+          <th scope="col" class="px-6 py-3">Fine</th>
+          <th scope="col" class="px-6 py-3">Return</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through rented books -->
+        <tr *ngFor="let book of rentedBooks">
+          <td class="px-6 py-4">{{ book.id }}</td>
+          <td class="px-6 py-4">{{ book.bookName }}</td>
+          <td class="px-6 py-4">{{ book.borrower?.name }}</td>
+          <td class="px-6 py-4">{{ book.contact }}</td>
+          <td class="px-6 py-4">{{ book.remarks }}</td>
+          <td class="px-6 py-4">{{ book.fine }}</td>
+          <td class="px-6 py-4">
+            <button
+              [disabled]="book.returned === 1 || book.returned === true"
+              (click)="returnBook(book.id, book.borrower?.id)"
+              class="text-blue-600 hover:underline {{
+                book.returned === 1 || book.returned === true
+                  ? 'opacity-50 cursor-not-allowed'
+                  : ''
+              }}"
+            >
+              {{
+                book.returned === 1 || book.returned === true
+                  ? "Returned"
+                  : "Return"
+              }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

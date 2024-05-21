@@ -6,6 +6,8 @@ import { WildcardComponent } from './pages/wildcard/wildcard.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { BooksComponent } from './pages/admin/books/books.component';
+import { StudentsComponent } from './pages/admin/students/students.component';
+import { BorrowlistComponent } from './pages/admin/borrowlist/borrowlist.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +39,16 @@ export const routes: Routes = [
     path: 'admin/books',
     component: BooksComponent,
     title: 'ACLC Library | Books',
+  },
+  {
+    path: 'admin/students',
+    component: StudentsComponent,
+    title: 'ACLC Library | Students List',
+  },
+  {
+    path: 'admin/borrowlist',
+    component: BorrowlistComponent,
+    title: 'ACLC Library | Borrowed Books',
   },
   {
     path: '**',

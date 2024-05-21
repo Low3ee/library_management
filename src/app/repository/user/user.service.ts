@@ -4,12 +4,8 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { UserData } from '../../models/user/user';
-
-interface Balance {
-  balance: number;
-}
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +24,8 @@ export class UserService {
   }
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  registerUser(user: any) {
-    console.log(user);
+
+  registerUser(user: any): Observable<any> {
     return this.httpClient
       .post('http://localhost:4201/api/user/signup', JSON.stringify(user), {
         headers: this.headers,
@@ -37,7 +33,7 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  loginUser(user: {}) {
+  loginUser(user: {}): Observable<any> {
     return this.httpClient
       .post('http://localhost:4201/api/user/login', JSON.stringify(user), {
         headers: this.headers,
@@ -45,7 +41,7 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  validateAdminSession(user: {}) {
+  validateAdminSession(user: {}): Observable<any> {
     return this.httpClient
       .post(
         'http://localhost:4201/api/user/validateAdminSession',
@@ -57,15 +53,34 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  getUserBalance(userId: any): Observable<Balance> {
+  getUserBalance(userId: any): Observable<any> {
     return this.httpClient
-      .get<Balance>(`http://localhost:4201/api/user/getBalance/${userId}`)
+      .get(`http://localhost:4201/api/user/getBalance/${userId}`)
       .pipe(catchError(this.handleError));
   }
 
-  logoutUser() {
+  logoutUser(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     window.location.replace('/signin');
+  }
+
+  deleteUser(userId: any): Observable<any> {
+    return this.httpClient
+      .delete(`http://localhost:4201/api/user/delete/${userId}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getAll(): Observable<any> {
+    return this.httpClient
+      .get('http://localhost:4201/api/user/all')
+      .pipe(catchError(this.handleError));
+  }
+
+  getUsersByIds(userIds: any[]): Observable<any> {
+    const params = { userIds: userIds.join(',') };
+    return this.httpClient
+      .get('http://localhost:4201/api/user/getUsersByIds', { params })
+      .pipe(catchError(this.handleError));
   }
 }

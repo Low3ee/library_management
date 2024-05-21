@@ -1,1 +1,49 @@
-<p>students works!</p>
+<div
+  class="h-screen w-full flex items-center justify-center self-center flex-col"
+>
+  <a routerLink="/admin" class="hover:text-green-600">Back to dashboard</a>
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Student ID</th>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">Username</th>
+          <th scope="col" class="px-6 py-3">Course</th>
+          <th scope="col" class="px-6 py-3">Year Level</th>
+          <th scope="col" class="px-6 py-3">Contact No</th>
+          <th scope="col" class="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through students array -->
+        <tr *ngFor="let student of students">
+          <td class="px-6 py-4">{{ student.id }}</td>
+          <td class="px-6 py-4">{{ student.name }}</td>
+          <td class="px-6 py-4">{{ student.username }}</td>
+          <td class="px-6 py-4">{{ student.course }}</td>
+          <td class="px-6 py-4">{{ student.year_level }}</td>
+          <td class="px-6 py-4">{{ student.contact_no }}</td>
+          <td class="px-6 py-4">
+            <button
+              (click)="editStudent(student)"
+              class="mr-2 text-blue-600 hover:underline"
+            >
+              Edit
+            </button>
+            <button
+              (click)="deleteStudent(student.id)"
+              class="text-red-600 hover:underline"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
