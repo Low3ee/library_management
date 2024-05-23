@@ -4,7 +4,7 @@ export interface UserData {
   email: string;
   course: string;
   year_level: number;
-  contact_no: string | null;
+  contact: string | null;
   balance: number | null;
   username: string;
 }

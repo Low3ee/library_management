@@ -5,6 +5,8 @@ import { JwtService } from '../../service/JwtService';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../repository/user/user.service';
 import { BooksService } from '../../repository/books/books.service';
+import { EditInfoModalComponent } from '../../components/edit-info-modal/edit-info-modal.component';
+import { NgIf } from '@angular/common';
 
 interface Balance {
   balance: number;
@@ -13,6 +15,7 @@ interface Balance {
 interface UserDeets {
   id: any;
   name: any;
+  username: any;
   email: any;
   course: any;
   year_level: any;
@@ -24,11 +27,20 @@ interface UserDeets {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SidenavComponent, PopupComponent, RouterLink],
+  imports: [
+    SidenavComponent,
+    PopupComponent,
+    RouterLink,
+    EditInfoModalComponent,
+    NgIf,
+  ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  isModalOpen = false;
+  userDetails: any;
+
   constructor(
     private jwtService: JwtService,
     private userService: UserService,
@@ -46,7 +58,29 @@ export class DashboardComponent implements OnInit {
     this.getBalance();
     this.getUserRentedBooks();
     this.getNotReturnedRentedBooks();
+    this.userDetails = this.getDeets();
   }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  saveUserDetails(updatedDetails: UserDeets) {
+    this.userService.editUser(updatedDetails.id, updatedDetails).subscribe({
+      next: (res) => {
+        this.userDetails = { ...updatedDetails };
+        this.closeModal();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
   balance: any = 0;
   bookCount: any = 0;
   notReturned: any = 0;
@@ -83,17 +117,12 @@ export class DashboardComponent implements OnInit {
   getBalance() {
     this.userService.getUserBalance(this.jwtService.getUserId()).subscribe({
       next: (data: Balance) => {
-        // Ensure that 'data' is typed as 'Balance'
-        console.log(`data: ${data.balance}`);
-        // Format the balance using the 'balance' field from 'data'
         const amount = new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'PHP',
         }).format(data.balance);
-
-        // Assign the formatted balance to 'this.balance'
         this.balance = amount;
-        console.log(`Formatted balance: ${this.balance}`);
+        console.log(`balance: ${this.balance}`);
       },
       error: (err) => {
         console.error(err);
@@ -101,11 +130,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getDeets() {
-    let jwt = this.jwtService;
+  getDeets(): UserDeets {
+    const jwt = this.jwtService;
     const deets: UserDeets = {
       id: jwt.getUserId(),
       name: jwt.getName(),
+      username: jwt.getUsername(),
       email: jwt.getEmail(),
       course: jwt.getCourse(),
       year_level: jwt.getYearLevel(),
@@ -113,7 +143,6 @@ export class DashboardComponent implements OnInit {
       contact: jwt.getContactNo(),
       date_enrolled: jwt.getDateEnrolled(),
     };
-
     return deets;
   }
 }

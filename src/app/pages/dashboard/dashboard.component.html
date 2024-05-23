@@ -5,18 +5,20 @@
   >
     <p class="text-4xl font-bold self-center">Student Dashboard</p>
     <div class="row-span-1 flex justify-around font-medium">
-      <p>Name: {{ getDeets().name }}</p>
-      <p>Course: {{ getDeets().course }}</p>
-      <p>Year Level: {{ getDeets().year_level }}</p>
-      <p>Date Enrolled: {{ getDeets().date_enrolled }}</p>
+      <p>Name: {{ userDetails.name }}</p>
+      <p>Course: {{ userDetails.course }}</p>
+      <p>Year Level: {{ userDetails.year_level }}</p>
+      <p>Date Enrolled: {{ userDetails.date_enrolled }}</p>
     </div>
     <div class="row-span-1 flex justify-around font-medium">
-      <p>Student ID: {{ getDeets().id }}</p>
-      <p>Contact No. {{ getDeets().contact }}</p>
-      <p>Email Address: {{ getDeets().email }}</p>
+      <p>Student ID: {{ userDetails.id }}</p>
+      <p>Contact No: (+63) {{ userDetails.contact }}</p>
+      <p>Email Address: {{ userDetails.email }}</p>
     </div>
     <div class="content-between flex justify-between mx-28">
-      <a href="" class="hover:text-green-950">Edit Information</a>
+      <a href="#" class="hover:text-green-950" (click)="openModal()"
+        >Edit Information</a
+      >
       <a (click)="logOut()" class="hover:text-red-600">Log Out</a>
     </div>
   </div>
@@ -28,7 +30,7 @@
     </div>
     <div class="grid grid-rows-3 text-center m-0 justify-center items-center">
       <p class="font-bold text-xl">Payment Due</p>
-      <p class="font-extrabold text-7xl">{{ getDeets().balance }}</p>
+      <p class="font-extrabold text-7xl">{{ this.balance }}</p>
       <p class="text-xs text-red-700">
         Note: If you have an outstanding balance your clearance will not be
         signed
@@ -39,6 +41,12 @@
       <p class="font-extrabold text-9xl">{{ notReturned }}</p>
       <a routerLink="/history">View History</a>
     </div>
-    <div></div>
   </div>
 </div>
+
+<app-edit-info-modal
+  [isOpen]="isModalOpen"
+  [userDetails]="userDetails"
+  (close)="closeModal()"
+  (save)="saveUserDetails($event)"
+></app-edit-info-modal>

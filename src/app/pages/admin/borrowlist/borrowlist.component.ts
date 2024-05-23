@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../repository/user/user.service';
 import { BooksService } from '../../../repository/books/books.service';
+import { JwtService } from '../../../service/JwtService';
 import { HistoryResponse } from '../../../models/bookHistory/bookHistory';
 import { AxiosResponse } from 'axios';
 import { NgForOf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 interface Borrower {
   id: any;
@@ -41,10 +42,20 @@ export class BorrowlistComponent implements OnInit {
   rentedBooks: BorrowedBook[] = [];
   constructor(
     private booksService: BooksService,
-    private userService: UserService
+    private userService: UserService,
+    private jwtService: JwtService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (this.jwtService.getToken()) {
+      if (this.jwtService.getRole() == 1) {
+        this.router.navigate(['/']);
+      }
+    } else {
+      this.router.navigate(['/signin']);
+    }
+
     this.loadRentedBooks();
   }
 

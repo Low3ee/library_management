@@ -7,21 +7,44 @@
       <label for="creds" class="label">Username/Email</label>
       <input
         type="text"
+        id="creds"
         name="creds"
         class="input-bordered input w-full"
         formControlName="creds"
-        [ngClass]="{ 'border-red-600 border-2': errorMessage != '' }"
+        [ngClass]="{
+          'border-red-600 border-2':
+            userForm.get('creds')?.invalid && userForm.get('creds')?.touched
+        }"
       />
+      <div
+        *ngIf="userForm.get('creds')?.invalid && userForm.get('creds')?.touched"
+        class="text-red-600"
+      >
+        Please enter username/email.
+      </div>
     </div>
     <div>
       <label for="password" class="label">Password</label>
       <input
         type="password"
+        id="password"
         name="password"
         class="input-bordered input w-full"
-        [ngClass]="{ 'border-red-600 border-2': errorMessage != '' }"
         formControlName="password"
+        [ngClass]="{
+          'border-red-600 border-2':
+            userForm.get('password')?.invalid &&
+            userForm.get('password')?.touched
+        }"
       />
+      <div
+        *ngIf="
+          userForm.get('password')?.invalid && userForm.get('password')?.touched
+        "
+        class="text-red-600"
+      >
+        Password is required.
+      </div>
     </div>
     <br />
     <input

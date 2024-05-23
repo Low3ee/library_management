@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtService } from '../../../service/JwtService';
 import { BooksService } from '../../../repository/books/books.service';
 import { BookModel } from '../../../models/book/book';
 import { NgClass, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { from } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -22,6 +23,8 @@ export class BooksComponent implements OnInit {
   constructor(
     private bookService: BooksService,
     private httpClient: HttpClient,
+    private jwtService: JwtService,
+    private router: Router,
     private fb: FormBuilder
   ) {
     // Initialize the form group inside the constructor
@@ -34,6 +37,13 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.jwtService.getToken()) {
+      if (this.jwtService.getRole() == 1) {
+        this.router.navigate(['/']);
+      }
+    } else {
+      this.router.navigate(['/signin']);
+    }
     this.bookService
       .getBooks()
       .then((response) => {

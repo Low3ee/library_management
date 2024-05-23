@@ -37,7 +37,9 @@
       </div>
     </div>
   </div>
-  <a (click)="logOut()">Log Out</a>
+  <div>
+    <a (click)="showLogoutModal($event)" class="hover:text-red-600">Log Out</a>
+  </div>
 </div>
 
 <!-- drawer init and toggle -->
@@ -303,6 +305,22 @@
     </form>
     <div class="modal-action">
       <button class="btn">Register Student</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="logoutModal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Confirm Logout</h3>
+    <p>Are you sure you want to log out?</p>
+    <div class="modal-action">
+      <button
+        class="btn hover:bg-red-600 hover:text-white"
+        (click)="confirmLogout()"
+      >
+        Yes
+      </button>
+      <button class="btn bg-gray-500" (click)="closeLogoutModal()">No</button>
     </div>
   </div>
 </dialog>

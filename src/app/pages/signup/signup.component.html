@@ -3,106 +3,225 @@
 
   <div class="text-red-600 font-bold">{{ errorMessage }}</div>
 
-  <div class="grid grid-rows-4 grid-flow-col gap-4">
-    <form action="" method="post" [formGroup]="form">
-      <!-- Row 1 -->
-      <div class="flex justify-between">
-        <div class="mr-2">
-          <label for="fname" class="label">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            class="input-bordered input w-full"
-            formControlName="name"
-          />
-        </div>
-        <div class="ml-2">
-          <label for="email" class="label">Email Address</label>
-          <input
-            type="text"
-            name="email"
-            class="input-bordered input w-full"
-            formControlName="email"
-          />
-        </div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="flex justify-between">
-        <div class="mr-2">
-          <label for="username" class="label">Username</label>
-          <input
-            type="text"
-            name="username"
-            class="input-bordered input w-full"
-            formControlName="username"
-          />
-        </div>
-        <div class="ml-2">
-          <label for="phone" class="label">Contact No.</label>
-          <input
-            type="tel"
-            name="phone"
-            class="input-bordered input w-full"
-            formControlName="contact_no"
-          />
-        </div>
-      </div>
-
-      <!-- Row 3 -->
-      <div class="flex justify-between">
-        <div class="mr-2">
-          <label for="course" class="label">Course</label>
-          <input
-            type="text"
-            name="course"
-            class="input-bordered input w-full"
-            formControlName="course"
-          />
-        </div>
-        <div class="ml-2">
-          <label for="year_level" class="label">Year Level</label>
-          <input
-            type="number"
-            name="year_level"
-            class="input-bordered input w-full"
-            formControlName="year_level"
-          />
-        </div>
-      </div>
-
-      <!-- Row 4 -->
-      <div class="flex justify-between">
-        <div class="mr-2">
-          <label for="password" class="label">Password</label>
-          <input
-            type="password"
-            name="password"
-            class="input-bordered input w-full"
-            formControlName="password"
-          />
-        </div>
-        <div class="ml-2">
-          <label for="cpassword" class="label">Confirm Password</label>
-          <input
-            type="password"
-            name="cpassword"
-            class="input-bordered input w-full"
-            formControlName="cpassword"
-          />
-        </div>
-      </div>
-
-      <br />
+  <form [formGroup]="form" class="grid grid-cols-2 gap-4 w-1/2">
+    <!-- Row 1 -->
+    <div class="col-span-1 flex flex-col">
+      <label for="name" class="label"
+        >Full Name<span class="text-red-500">*</span></label
+      >
       <input
-        type="button"
-        value="Register"
-        class="btn btn-primary self-center w-full"
-        (click)="registerUser()"
+        type="text"
+        id="name"
+        name="name"
+        class="input-bordered input w-full"
+        formControlName="name"
+        required
       />
-    </form>
-  </div>
+      <div
+        *ngIf="
+          form.get('name').hasError('required') && form.get('name').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Full Name is required.
+      </div>
+    </div>
 
-  <br />
-  <span>Already Registered? <a routerLink="/signup">Log In</a> </span>
+    <div class="col-span-1 flex flex-col">
+      <label for="email" class="label"
+        >Email Address<span class="text-red-500">*</span></label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="input-bordered input w-full"
+        formControlName="email"
+        required
+        [pattern]="emailPattern"
+      />
+      <div
+        *ngIf="
+          form.get('email').hasError('required') && form.get('email').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Email Address is required.
+      </div>
+      <div
+        *ngIf="
+          form.get('email').hasError('pattern') && form.get('email').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Please enter a valid email address.
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="col-span-1 flex flex-col">
+      <label for="username" class="label"
+        >Username<span class="text-red-500">*</span></label
+      >
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="input-bordered input w-full"
+        formControlName="username"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('username').hasError('required') &&
+          form.get('username').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Username is required.
+      </div>
+    </div>
+
+    <div class="col-span-1 flex flex-col">
+      <label for="contact_no" class="label"
+        >Contact No.<span class="text-red-500">*</span></label
+      >
+      <input
+        type="tel"
+        id="contact_no"
+        name="contact_no"
+        class="input-bordered input w-full"
+        formControlName="contact_no"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('contact_no').hasError('required') &&
+          form.get('contact_no').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Contact Number is required.
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="col-span-1 flex flex-col">
+      <label for="course" class="label"
+        >Course<span class="text-red-500">*</span></label
+      >
+      <input
+        type="text"
+        id="course"
+        name="course"
+        class="input-bordered input w-full"
+        formControlName="course"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('course').hasError('required') && form.get('course').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Course is required.
+      </div>
+    </div>
+
+    <div class="col-span-1 flex flex-col">
+      <label for="year_level" class="label"
+        >Year Level<span class="text-red-500">*</span></label
+      >
+      <input
+        type="number"
+        id="year_level"
+        name="year_level"
+        class="input-bordered input w-full"
+        formControlName="year_level"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('year_level').hasError('required') &&
+          form.get('year_level').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Year Level is required.
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="col-span-1 flex flex-col">
+      <label for="password" class="label"
+        >Password<span class="text-red-500">*</span></label
+      >
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="input-bordered input w-full"
+        formControlName="password"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('password').hasError('required') &&
+          form.get('password').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Password is required.
+      </div>
+      <div
+        *ngIf="
+          form.get('password').hasError('minlength') &&
+          form.get('password').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Password must be at least 6 characters long.
+      </div>
+    </div>
+
+    <div class="col-span-1 flex flex-col">
+      <label for="cpassword" class="label"
+        >Confirm Password<span class="text-red-500">*</span></label
+      >
+      <input
+        type="password"
+        id="cpassword"
+        name="cpassword"
+        class="input-bordered input w-full"
+        formControlName="cpassword"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('cpassword').hasError('required') &&
+          form.get('cpassword').touched
+        "
+        class="text-red-600 text-sm"
+      >
+        Confirm Password is required.
+      </div>
+      <div
+        *ngIf="form.hasError('mismatch') && form.get('cpassword').touched"
+        class="text-red-600 text-sm"
+      >
+        Passwords do not match.
+      </div>
+    </div>
+    <div class="col-span-2">
+      <button
+        type="button"
+        class="btn btn-primary w-full"
+        (click)="registerUser()"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+
+  <span>Already Registered? <a routerLink="/signin">Log In</a> </span>
 </div>

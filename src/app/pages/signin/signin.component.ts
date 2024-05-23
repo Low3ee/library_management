@@ -16,10 +16,12 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.css',
+  styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
   userForm: any;
+  errorMessage: string = '';
+
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
@@ -33,24 +35,29 @@ export class SigninComponent implements OnInit {
       password: new FormControl('', { validators: Validators.required }),
     });
   }
-  errorMessage: string = '';
 
   get creds() {
-    return this.userForm.creds;
-  }
-  get password() {
-    return this.userForm.password;
+    return this.userForm.get('creds');
   }
 
-  user: any = [];
+  get password() {
+    return this.userForm.get('password');
+  }
 
   loginUser(): void {
+    if (this.userForm.invalid) {
+      this.validateForm();
+      return;
+    }
+
     this.userService.loginUser(this.userForm.value).subscribe(
       (response: any) => {
-        this.user = response.token;
-        console.log(`from component ${response}`);
-        localStorage.setItem('token', JSON.stringify(this.user));
+        // Handle successful response
+        const token = response.token;
+        console.log('Login successful');
+        localStorage.setItem('token', token);
 
+        // Redirect the user based on their role
         if (this.jwtService.getRole() > 1) {
           this.router.navigate(['/admin']);
         } else {
@@ -58,22 +65,20 @@ export class SigninComponent implements OnInit {
         }
       },
       (error) => {
+        // Log the full error object for inspection
+        console.error('Error from server:', error);
+
+        // Set a generic error message
         this.errorMessage = error;
       }
     );
   }
+
   validateForm() {
-    if (!this.creds && !this.password) {
-      this.errorMessage = 'Please fill all fields.';
-      return this.errorMessage;
-    } else if (this.userForm.controls.password.errors?.['required']) {
-      this.errorMessage = 'Password is required';
-      return this.errorMessage;
-    } else if (this.userForm.controls.creds.errors?.['required']) {
+    if (this.creds?.invalid) {
       this.errorMessage = 'Please enter username/email.';
-      return this.errorMessage;
+    } else if (this.password?.invalid) {
+      this.errorMessage = 'Password is required.';
     }
-    this.errorMessage = '';
-    return this.errorMessage;
   }
 }

@@ -64,7 +64,7 @@ export class JwtService {
   getContactNo() {
     const decodedToken = this.getDecodedToken();
     if (decodedToken) {
-      return decodedToken.contact_no;
+      return decodedToken.contact;
     }
     return null;
   }

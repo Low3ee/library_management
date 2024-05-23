@@ -1,3 +1,4 @@
+<!-- students.component.html -->
 <div
   class="h-screen w-full flex items-center justify-center self-center flex-col"
 >
@@ -16,7 +17,8 @@
           <th scope="col" class="px-6 py-3">Course</th>
           <th scope="col" class="px-6 py-3">Year Level</th>
           <th scope="col" class="px-6 py-3">Contact No</th>
-          <th scope="col" class="px-6 py-3">Actions</th>
+          <th scope="col" class="px-6 py-3">Balance</th>
+          <th scope="col" class="px-6 py-3 text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -27,17 +29,26 @@
           <td class="px-6 py-4">{{ student.username }}</td>
           <td class="px-6 py-4">{{ student.course }}</td>
           <td class="px-6 py-4">{{ student.year_level }}</td>
-          <td class="px-6 py-4">{{ student.contact_no }}</td>
+          <td class="px-6 py-4">{{ student.contact }}</td>
+          <td class="px-6 py-4">{{ student.balance }}</td>
           <td class="px-6 py-4">
             <button
               (click)="editStudent(student)"
               class="mr-2 text-blue-600 hover:underline"
             >
-              Edit
+              Edit Info
             </button>
+            |
+            <button
+              (click)="editBalance(student)"
+              class="mx-2 text-blue-600 hover:underline"
+            >
+              Edit Balance
+            </button>
+            |
             <button
               (click)="deleteStudent(student.id)"
-              class="text-red-600 hover:underline"
+              class="ml-2 text-red-600 hover:underline"
             >
               Delete
             </button>
@@ -46,4 +57,18 @@
       </tbody>
     </table>
   </div>
+
+  <app-edit-info-modal
+    [isOpen]="editedStudent !== null"
+    [userDetails]="editedStudent"
+    (close)="closeEditDialog()"
+    (save)="saveStudentChanges($event)"
+  ></app-edit-info-modal>
+
+  <app-edit-balance-modal
+    [isOpen]="studentForBalanceEdit !== null"
+    [studentDetails]="studentForBalanceEdit"
+    (close)="closeBalanceDialog()"
+    (save)="saveBalanceChanges($event)"
+  ></app-edit-balance-modal>
 </div>

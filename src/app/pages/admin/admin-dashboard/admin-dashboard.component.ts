@@ -48,8 +48,12 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     initFlowbite();
-    if (this.jwtService.getRole() == 1) {
-      this.router.navigate(['/']);
+    if (this.jwtService.getToken()) {
+      if (this.jwtService.getRole() == 1) {
+        this.router.navigate(['/']);
+      }
+    } else {
+      this.router.navigate(['/signin']);
     }
 
     this.addBookForm = this.fb.group({
@@ -147,9 +151,29 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  logOut(): void {
+  showLogoutModal(event: Event): void {
+    event.preventDefault();
+    const logoutModal = document.getElementById(
+      'logoutModal'
+    ) as HTMLDialogElement;
+    if (logoutModal) {
+      logoutModal.showModal();
+    }
+  }
+
+  closeLogoutModal(): void {
+    const logoutModal = document.getElementById(
+      'logoutModal'
+    ) as HTMLDialogElement;
+    if (logoutModal) {
+      logoutModal.close();
+    }
+  }
+
+  confirmLogout(): void {
     this.userService.logoutUser();
     this.router.navigate(['/login']);
+    this.closeLogoutModal();
   }
 
   private getErrorMessage(err: any): string {
